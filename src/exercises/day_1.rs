@@ -31,24 +31,37 @@ where
 }
 
 fn get_calibration_value(word: &str) -> Result<u32, &'static str> {
-    let mut chars = word.chars();
-    let (mut first_digit, mut last_digit) = (None, None);
-
-    while let Some(c) = chars.next() {
-        if c.is_digit(10) {
-            if first_digit.is_none() {
-                first_digit = Some(c);
+    // First digit
+    let mut start = 0;
+    while start < word.len() {
+        if let Some(start_char) = word.chars().nth(start) {
+            if start_char.is_digit(10) {
+                break;
             }
-            last_digit = Some(c);
+            start += 1;
         }
     }
 
-    if let (Some(first), Some(last)) = (first_digit, last_digit) {
-        let num1 = first.to_digit(10).unwrap();
-        let num2 = last.to_digit(10).unwrap();
-        let result = num1 * 10 + num2;
-        return Ok(result);
+    // Last digit
+    let mut end = word.len() - 1;
+    while end >= start {
+        if let Some(end_char) = word.chars().nth(end) {
+            if end_char.is_digit(10) {
+                break;
+            }
+            end -= 1;
+        }
     }
 
-    Err("No digit found")
+    if let (Some(first), Some(last)) = (word.chars().nth(start), word.chars().nth(end)) {
+        let result = convert_digits_to_num(first, last);
+        return Ok(result);
+    }
+    Err("No digits found")
+}
+
+fn convert_digits_to_num(first: char, last: char) -> u32 {
+    let num1 = first.to_digit(10).unwrap();
+    let num2 = last.to_digit(10).unwrap();
+    num1 * 10 + num2
 }
