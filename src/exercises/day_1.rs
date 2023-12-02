@@ -11,11 +11,10 @@ pub fn run() -> Result<(), &'static str> {
                 if let Ok(word) = line {
                     let value = get_calibration_value(&word)?;
                     result += value;
-                    println!("{}: {}", word, value)
                 }
             }
 
-            println!("Result = {}", result);
+            println!("Sum = {}", result);
         }
         Err(e) => eprintln!("Error opening '{}': {}", file_path, e),
     };
