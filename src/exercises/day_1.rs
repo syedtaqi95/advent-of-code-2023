@@ -1,7 +1,6 @@
 use std::collections::HashMap;
-use std::fs::File;
-use std::io::{self, BufRead};
-use std::path::Path;
+
+use super::read_lines;
 
 pub fn run() -> Result<(), &'static str> {
     let mut result = 0;
@@ -21,14 +20,6 @@ pub fn run() -> Result<(), &'static str> {
         Err(e) => eprintln!("Error opening '{}': {}", file_path, e),
     };
     Ok(())
-}
-
-fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
-where
-    P: AsRef<Path>,
-{
-    let file = File::open(filename)?;
-    Ok(io::BufReader::new(file).lines())
 }
 
 fn get_calibration_value(word: &str) -> Result<u32, &'static str> {
