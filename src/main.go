@@ -4,11 +4,12 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+
+	"github.com/syedtaqi95/advent-of-code-2023/exercises"
 )
 
 func main() {
 	args := os.Args
-	fmt.Println(args)
 
 	if len(args) != 2 {
 		fmt.Println("Usage: go run . <day_number>")
@@ -16,12 +17,15 @@ func main() {
 		os.Exit(1)
 	}
 
-	day_num, err := strconv.Atoi(args[1])
-	if err != nil {
+	day_num, conversion_err := strconv.Atoi(args[1])
+	if conversion_err != nil {
 		fmt.Println("Could not parse day number. Must be an integer between 2 and 25.")
 		os.Exit(1)
 	}
 
-	fmt.Println("Running day", day_num)
-
+	runtime_err := exercises.RunExercise(day_num)
+	if runtime_err != nil {
+		fmt.Println(runtime_err)
+		os.Exit(1)
+	}
 }
