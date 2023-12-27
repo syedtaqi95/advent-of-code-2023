@@ -9,7 +9,7 @@ func RunExercise(day int) error {
 	case 2:
 		RunDay2()
 	default:
-		return errors.New("could not find exercise file. Day must be between 2 and 25")
+		return errors.New("Could not find exercise file. Day must be between 2 and 25")
 	}
 	return nil
 }
