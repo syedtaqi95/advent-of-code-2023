@@ -93,7 +93,7 @@ func RunDay2() {
 	fmt.Println("Running exercise 2...")
 
 	// Open the data file for reading
-	filepath := "./exercises/day_2.data"
+	filepath := "./data/day_2.data"
 	file, err := os.Open(filepath)
 	if err != nil {
 		panic(err)

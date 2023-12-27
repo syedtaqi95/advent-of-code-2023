@@ -4,7 +4,7 @@ use super::read_lines;
 
 pub fn run() -> Result<(), &'static str> {
     let mut result = 0;
-    let file_path = "./src/exercises/day_1.data";
+    let file_path = "./data/day_1.data";
     match read_lines(file_path) {
         Ok(lines) => {
             for line in lines {
