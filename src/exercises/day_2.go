@@ -89,6 +89,24 @@ func isGamePossible(game Game) bool {
 	return true
 }
 
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}
+
+func findMinCubes(game Game) Round {
+	min_cubes := Round{}
+	for _, round := range game.rounds {
+		min_cubes.red = max(min_cubes.red, round.red)
+		min_cubes.green = max(min_cubes.green, round.green)
+		min_cubes.blue = max(min_cubes.blue, round.blue)
+	}
+
+	return min_cubes
+}
+
 func RunDay2() {
 	fmt.Println("Running exercise 2...")
 
@@ -102,18 +120,24 @@ func RunDay2() {
 
 	// Loop through each line
 	scanner := bufio.NewScanner(file)
-	result := 0
+	result_1 := 0
+	result_2 := 0
 	for scanner.Scan() {
 		line := scanner.Text()
 		game, err := createGame(line)
 		if err != nil {
 			panic(err)
 		}
+		
 		if isGamePossible(game) {
-			result += game.id
+			result_1 += game.id
 		}
+
+		min_cubes := findMinCubes(game)
+		result_2 += min_cubes.red * min_cubes.green * min_cubes.blue
 	}
-	fmt.Println("Result:", result)
+	fmt.Println("result_1:", result_1)
+	fmt.Println("result_2:", result_2)
 
 	if err := scanner.Err(); err != nil {
 		panic(err)
